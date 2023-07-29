@@ -4,20 +4,17 @@ server:
     context-path: /authservice
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:./users;MODE=PostgreSQL
-    username: sa
-    password:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/authdb
+    username: postrgres
+    password: 123
   jpa:
+    database: POSTGRESQL
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: false
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+
 jwt:
   secret: h4f8093h4f983yhrt9834hr0934hf0hf493g493gf438rh438th34g34g
   lifetime: 36000000
