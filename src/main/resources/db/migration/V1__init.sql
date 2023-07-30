@@ -28,9 +28,11 @@ insert into roles (name)
 values ('ROLE_USER'),
        ('ROLE_ADMIN');
 
-insert into users (username, password, email)
-values ('bob', '$2a$12$fg9v50ztcoXXmHSD6omQzOnqVoprKRz6hh9wUEkEwPjvi/BqI6sB2', 'bob_johnson@gmail.com'), --password 'password'
-       ('john', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'john_johnson@gmail.com');
+insert into users (username, password)
+values ('Grafter', '$2a$12$fg9v50ztcoXXmHSD6omQzOnqVoprKRz6hh9wUEkEwPjvi/BqI6sB2'), --password 'password'
+       ('Vitty', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i'),  --password '100'
+       ('Thomp', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i'),  --password '100'
+       ('Alaya', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i');  --password '100'
 
 insert into users_roles (user_id, role_id)
 values (1, 1),

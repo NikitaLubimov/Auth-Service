@@ -2,6 +2,7 @@ package ru.gb.fitnessclub.authservice.integrations;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.gb.fitnessclub.authservice.api.ClientInfoRequest;
@@ -16,7 +17,8 @@ public class AccountServiceIntegration {
     public void createAccount(ClientInfoRequest clientInfo){
         accountServiceWebClient.post()
                 .uri("/api/v1/clients//accounts/info/update")
-                .body(clientInfo,ClientInfoRequest.class)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(clientInfo)
                 .retrieve()
                 .toBodilessEntity()
                 .block();
