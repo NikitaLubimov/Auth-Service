@@ -1,12 +1,12 @@
 server:
   port: 8888
   servlet:
-    context-path: /authservice
+    context-path: /auth-service
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/authdb
-    username: postrgres
+    username: postgres
     password: 123
   jpa:
     database: POSTGRESQL
