@@ -14,7 +14,9 @@ import ru.gb.fitnessclub.authservice.api.AppError;
 import ru.gb.fitnessclub.authservice.api.JwtRequest;
 import ru.gb.fitnessclub.authservice.api.JwtResponse;
 import ru.gb.fitnessclub.authservice.api.RegistrationUserDto;
+import ru.gb.fitnessclub.authservice.converter.RegistrationDtoConvereter;
 import ru.gb.fitnessclub.authservice.entities.User;
+import ru.gb.fitnessclub.authservice.integrations.AccountServiceIntegration;
 import ru.gb.fitnessclub.authservice.utils.JwtTokenUtil;
 
 @Service
@@ -25,7 +27,8 @@ public class AuthService {
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
-
+    private final AccountServiceIntegration accountService;
+    private final RegistrationDtoConvereter regConvereter;
     public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
@@ -45,10 +48,16 @@ public class AuthService {
             return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пользователь с таким именем уже существует"), HttpStatus.BAD_REQUEST);
         }
         User user = new User();
-        user.setEmail(registrationUserDto.getEmail());
         user.setUsername(registrationUserDto.getUsername());
         user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
         userService.createUser(user);
+
+
+        //TODO
+        // подумать как реализовать механизм, при котором, если создать новый аккаунт не удалось регистрация отменяется
+        // в том числе запись в auth-service созданная строкой выше
+        accountService.createAccount(regConvereter.registrationUserDtoToClientInfoRequest(registrationUserDto));
+
 
         UserDetails userDetails = userService.loadUserByUsername(registrationUserDto.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
