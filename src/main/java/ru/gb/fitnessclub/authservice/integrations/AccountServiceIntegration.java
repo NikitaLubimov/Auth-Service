@@ -16,7 +16,7 @@ public class AccountServiceIntegration {
 
     public void createAccount(ClientInfoRequest clientInfo){
         accountServiceWebClient.post()
-                .uri("/api/v1/clients//accounts/info/update")
+                .uri("/api/v1/clients/accounts/info/update")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(clientInfo)
                 .retrieve()
